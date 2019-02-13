@@ -71,3 +71,23 @@ export function auth(){
         payload:request
     }
 }
+
+export function addBook(book){
+  const   obj= {
+            name:book.name,
+            author:book.author,
+            review:book.review,
+            pages:book.pages,
+            rating:book.rating,
+            price:book.price,
+            ownerId:book.ownerId
+    } 
+    console.log(book.name);
+    const request = axios.post('/api/book',obj)
+                    .then(response=>response.data)
+
+    return{
+        type:'ADD_BOOK',
+        payload:request
+    }
+}
