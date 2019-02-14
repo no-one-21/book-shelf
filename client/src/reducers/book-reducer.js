@@ -16,6 +16,8 @@ export default function(state={},action){
         }
         case 'ADD_BOOK':
         return {...state,newbook:action.payload}
+        case 'CLEAR_NEW_BOOK':
+        return {...state,newbook:action.payload}
         default:
         return state;
     }

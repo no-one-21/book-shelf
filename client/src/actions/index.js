@@ -18,7 +18,7 @@ export function getBooks(limit=10,start=0,order='asc',list=''){
 
 export function  getBookWithReviewer (id){
     const request = axios.get(`/api/getBook?id=${id}`)
-
+//do do request maarni hain thats y , reduc thunk came into use , nhi toe dusri ko kaise pata chalega ki kab nikalna hai
     return (dispatch)=>{
         request.then(({data})=>{
             let book = data;
@@ -73,7 +73,7 @@ export function auth(){
 }
 
 export function addBook(book){
-  const   obj= {
+ /* const   obj= {
             name:book.name,
             author:book.author,
             review:book.review,
@@ -81,13 +81,30 @@ export function addBook(book){
             rating:book.rating,
             price:book.price,
             ownerId:book.ownerId
-    } 
+    }  */
     console.log(book.name);
-    const request = axios.post('/api/book',obj)
-                    .then(response=>response.data)
+    const request = axios.post('/api/book',book)
+                    .then((response)=>response.data);
 
     return{
         type:'ADD_BOOK',
+        payload:request
+    }
+}
+
+export function clearNewBook() {
+    return{
+        type:'CLEAR_NEW_BOOK',
+        payload:{}
+    }
+}
+
+export function getUserPosts(userId){
+    const request = axios.get(`/api/user_posts?user=${userId}`)
+                    .then(response => response.data)
+
+    return{
+        type:'GET_USER_POSTS',
         payload:request
     }
 }

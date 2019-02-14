@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addBook } from '../../actions';
+import { addBook, clearNewBook } from '../../actions';
 
 class AddBook extends Component{
 
@@ -36,6 +36,21 @@ class AddBook extends Component{
            
         }))
         //at this point of time , we want add book to be dispatched , when user clicks on submitting the form
+    }
+
+    showNewBook = (book) =>(
+        book.post ? 
+            <div className="conf_link">
+                Review Added <Link to={`/books/${book.bookId}`}>
+                    Click the link to see the post 
+                </Link>
+            </div>
+        :null
+        
+    )
+
+    componentWillUnmount(){
+        this.props.dispatch(clearNewBook())
     }
 
     render(){
@@ -97,6 +112,11 @@ class AddBook extends Component{
                             />
                     </div>
                     <button type="submit">Add Review</button>
+                    {
+                        this.props.books.newbook ?
+                            this.showNewBook(this.props.books.newbook)
+                        :null
+                    }
                </form>
             </div>
         )
