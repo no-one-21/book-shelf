@@ -1,9 +1,10 @@
-import React,{Component} from 'react';
+import React,{PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {getUsers,userRegister } from '../../actions'
+import { unwatchFile } from 'fs';
 
 
-class Register extends Component{
+class Register extends PureComponent{
 
     state={
         name:'',
@@ -12,6 +13,8 @@ class Register extends Component{
         password:'',
         error:''
     }
+//we should also dos ome front end validation for avoiding some backend errors , like setting password strength
+//means overall , we should beforehand check that data we are sending to the user is already correct to avoid backend errors
 
     handleInputEmail= (event) =>{
         this.setState({email:event.target.value})
@@ -24,6 +27,21 @@ class Register extends Component{
     }
     handleInputLastname= (event) =>{
         this.setState({lastname:event.target.value})
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.user.register === false){
+            this.setState({error:'Error, user cannot be added'})
+
+        }else{
+            this.setState({
+                name:'',
+                lastname:'',
+                email:'',
+                password:'',
+                error:''
+            })
+        }
     }
 
     submitForm = (e) =>{

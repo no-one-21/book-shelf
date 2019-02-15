@@ -164,9 +164,10 @@ export function userRegister(user,userList){
 
     return (dispatch)=>{
         request.then(({data})=>{
+            let users = data.success ? [...userList,data.user] :userList
             let response = {
                 success:data.success,
-                users:[...userList,data.user]
+                users
             }
 
             dispatch({
