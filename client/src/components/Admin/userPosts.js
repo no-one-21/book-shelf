@@ -33,13 +33,13 @@ class UserPosts extends Component {
             <div className="user_posts">
                 <h4> Your reviews:</h4>
                     <table>
-                        <thread>
+                        <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Author</th>
                                 <th>Date</th>
                             </tr>
-                        </thread>
+                        </thead>
                         <tbody>
                             {this.showUserPosts(user)}
                         </tbody>

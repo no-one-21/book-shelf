@@ -108,3 +108,71 @@ export function getUserPosts(userId){
         payload:request
     }
 }
+
+export function getBook(id){
+    const request= axios.get(`/api/getBook?id=${id}`)
+                    .then(response=>response.data)
+
+    return {
+        type:'GET_BOOK',
+        payload:request
+    }
+}
+export function updateBook(data){
+    const request = axios.post(`/api/book_update`,data)
+                    .then(response=>response.data);
+
+    return{
+        type:'UPDATE_BOOK',
+        payload:request
+    }
+}
+
+export function deleteBook(id){
+    const request = axios.delete(`/api/delete_book?id=${id}`)
+                        .then(response=>response.data);
+
+    return{
+        type:'DELETE_BOOK',
+        payload:request
+    }
+}
+
+export function clearBook(){
+    return{
+        type:'CLEAR_BOOK',
+        payload:{
+            book:null,
+            updateBook:false,
+            postDeleted:false
+        }
+    }
+}
+
+export function getUsers(){
+    const request=axios.get(`/api/users`)
+                    .then(response=>response.data);
+
+    return{
+        type:'GET_USER',
+        payload:request
+    }
+}
+
+export function userRegister(user,userList){
+    const request=axios.post(`/api/register`,user)
+
+    return (dispatch)=>{
+        request.then(({data})=>{
+            let response = {
+                success:data.success,
+                users:[...userList,data.user]
+            }
+
+            dispatch({
+                type:'USER_REGISTER',
+                payload:response
+            })
+        })
+    }
+}
